@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Instagram MockUp – Tierschutzpartei Walfang-Karussell</title>
+@media (max-width: 420px) {
+  body {
+    padding: 0;
+    background: #fff;
+  }
+  .phone-frame {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .carousel-wrap {
+    width: 100%;
+  }
+  .slide {
+    min-width: 100%;
+  }
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -265,7 +282,7 @@ for (let i = 0; i < total; i++) {
 }
 
 function update() {
-  track.style.transform = `translateX(${-cur * 390}px)`;
+  track.style.transform = `translateX(${-cur * track.parentElement.offsetWidth}px)`;
   counter.textContent = (cur+1) + ' / ' + total;
   document.querySelectorAll('.dot').forEach((d,i) => d.className='dot'+(i===cur?' active':''));
   btnL.classList.toggle('hidden', cur===0);
