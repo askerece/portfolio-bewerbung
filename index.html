@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ece Asker – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1E2A78;
+    --navy-mid: #2D3A8C;
+    --navy-light: #3D4FA0;
+    --white: #FFFFFF;
+    --off: #F6F7FB;
+    --text: #1A1A2E;
+    --muted: #6B7280;
+    --border: #D1D5E8;
+    --accent: #5B6FCA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px;
+    height: 60px;
+  }
+
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 80px 80px 60px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,111,202,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 10%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,111,202,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text {
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.1s forwards;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+  }
+
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero-text h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    display: block;
+    font-size: 0.85em;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    max-width: 380px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    color: var(--navy);
+    padding: 14px 28px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--off);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 20px 24px;
+    color: var(--white);
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 96px 80px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--navy);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+
+  /* ─── MOTIVATION ─── */
+  .motivation {
+    background: var(--off);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .motivation-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--navy);
+    line-height: 1.4;
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .motivation-body p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  /* ─── SKILLS ─── */
+  .skills { background: var(--white); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .skill-block {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-block:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .skill-block-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skill-list li {
+    font-size: 13.5px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ─── ERFOLGE ─── */
+  .erfolge { background: var(--off); }
+
+  .erfolge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .erfolg-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .erfolg-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .erfolg-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--navy);
+    padding-top: 3px;
+  }
+
+  .erfolg-text {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ─── ARBEITSPROBEN ─── */
+  .arbeitsproben { background: var(--navy); }
+
+  .arbeitsproben .section-title { color: var(--white); }
+  .arbeitsproben .section-label { color: rgba(255,255,255,0.5); }
+
+  .proben-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .probe-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 36px 32px;
+    text-decoration: none;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .probe-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px; width: 0;
+    background: var(--white);
+    transition: width 0.35s ease;
+  }
+
+  .probe-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .probe-card:hover::after { width: 100%; }
+
+  .probe-platform {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    font-weight: 700;
+  }
+
+  .probe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+  }
+
+  .probe-desc {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    flex-grow: 1;
+  }
+
+  .probe-link {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .probe-link svg { transition: transform 0.2s; }
+  .probe-card:hover .probe-link svg { transform: translateX(5px); }
+
+  /* ─── CV ─── */
+  .cv-section { background: var(--white); }
+
+  .cv-timeline {
+    position: relative;
+    padding-left: 28px;
+    border-left: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .cv-item {
+    position: relative;
+  }
+
+  .cv-item::before {
+    content: '';
+    position: absolute;
+    left: -35px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--accent);
+  }
+
+  .cv-date {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .cv-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .cv-company {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .cv-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .cv-bullets li {
+    font-size: 13.5px;
+    color: var(--text);
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .cv-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ─── KONTAKT ─── */
+  .kontakt {
+    background: var(--off);
+    text-align: center;
+  }
+
+  .kontakt .section-title { margin-bottom: 16px; }
+
+  .kontakt-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .kontakt-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .kontakt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .kontakt-link.secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--border);
+  }
+
+  .kontakt-link:hover { transform: translateY(-2px); background: var(--navy-mid); }
+  .kontakt-link.secondary:hover { background: var(--border); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 100px 32px 60px;
+      gap: 48px;
+    }
+
+    section { padding: 72px 32px; }
+
+    .motivation {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .motivation-quote { position: static; font-size: 1.3rem; }
+
+    .skills-grid { grid-template-columns: 1fr; }
+
+    .proben-grid { grid-template-columns: 1fr; }
+
+    .erfolg-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero { padding: 90px 24px 56px; }
+    section { padding: 64px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Ece Asker</a>
+  <ul class="nav-links">
+    <li><a href="#motivation">Profil</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#erfolge">Erfolge</a></li>
+    <li><a href="#arbeitsproben">Arbeitsproben</a></li>
+    <li><a href="#cv">Lebenslauf</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Portfolio · Berlin</p>
+    <h1>
+      Ece Asker
+      <em>Strategische Projektleitung & Digitale Prozessoptimierung</em>
+    </h1>
+    <p class="hero-tagline">Ich arbeite an der Schnittstelle zwischen Strategie und Umsetzung: strukturiert, empathisch und mit einem klaren Blick für das, was wirklich funktioniert.</p>
+    <a href="#motivation" class="hero-cta">
+      Mehr erfahren
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2.5L7 11.5M2.5 7L7 11.5L11.5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-label">Sprachen</div>
+      <div class="stat-value">Deutsch · Türkisch · Englisch · Französisch</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Fachbereiche</div>
+      <div class="stat-value">Projektkoordination · CRM · Social Media · HR · Content</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tools</div>
+      <div class="stat-value">HubSpot · Close · Monday · Canva · WordPress · MS Office · Google Workspace</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Ausbildung</div>
+      <div class="stat-value">B.A. Medienmanagement – Journalismus & PR · SRH Berlin</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATION -->
+<section class="motivation" id="motivation">
+  <div class="motivation-quote">
+    "Technik funktioniert nur, wenn sie auch gelebt wird."
+  </div>
+  <div class="motivation-body">
+    <p class="section-label">Meine Motivation</p>
+    <h2 class="section-title">Warum ich tue, was ich tue</h2>
+    <p>Ich arbeite gerne an der Schnittstelle zwischen Strategie und Umsetzung und bringe Erfahrung in der Projektkoordination, digitale Affinität und strukturiertes Denken mit. Mein Ziel ist es, gemeinsam mit dem Team Prozesse effizient zu gestalten, Veränderungen aktiv zu begleiten und dabei Qualität, Menschlichkeit und Entwicklung im Blick zu behalten.</p>
+    <p>Bei der Einführung von Monday als Projektsteuerungs-Tool habe ich gelernt: Selbst das beste Tool bringt nichts, wenn der neue Prozess nicht auf allen Ebenen vorgelebt wird. Heute achte ich darauf, dass echtes Commitment vorhanden ist, bevor Zeit, Geld und Energie in die technische Umsetzung fließen.</p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <p class="section-label">Kompetenzen</p>
+  <h2 class="section-title">Skills & Fachkenntnisse</h2>
+  <div class="skills-grid">
+
+    <div class="skill-block">
+      <div class="skill-block-title">Fachkenntnisse</div>
+      <ul class="skill-list">
+        <li>Projektkoordination & -planung</li>
+        <li>Digitale Prozessführung</li>
+        <li>CRM (Close, HubSpot)</li>
+        <li>Bewerbermanagement</li>
+        <li>Veranstaltungsplanung</li>
+        <li>Dokumentation & Ablage</li>
+      </ul>
+    </div>
+
+    <div class="skill-block">
+      <div class="skill-block-title">Content & Marketing</div>
+      <ul class="skill-list">
+        <li>Social Media & E-Mail-Marketing</li>
+        <li>Content-Erstellung</li>
+        <li>Canva & WordPress</li>
+        <li>MS Office & Google Workspace</li>
+        <li>SEO-Grundlagen</li>
+        <li>Employer Branding</li>
+      </ul>
+    </div>
+
+    <div class="skill-block">
+      <div class="skill-block-title">Soft Skills</div>
+      <ul class="skill-list">
+        <li>Strategische Empathie</li>
+        <li>Strukturierte Arbeitsweise</li>
+        <li>Analytische Problemlösung</li>
+        <li>Stressresistenz</li>
+        <li>Interkulturelles Gespür</li>
+        <li>Eigeninitiative & Teamfähigkeit</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERFOLGE -->
+<section class="erfolge" id="erfolge">
+  <p class="section-label">Nachweisbare Wirkung</p>
+  <h2 class="section-title">Erfolge & Ergebnisse</h2>
+  <div class="erfolge-list">
+
+    <div class="erfolg-item">
+      <span class="erfolg-label">Skalierung der Wissensvermittlung</span>
+      <p class="erfolg-text">Einen digitalen Mitgliederbereich (Memberspot) in nur 30 Tagen aufgebaut und automatisiert. Kunden konnten sich jederzeit selbst einarbeiten, das Team sparte massiv Zeit und alle wichtigen Infos waren rund um die Uhr verfügbar.</p>
+    </div>
+
+    <div class="erfolg-item">
+      <span class="erfolg-label">Produkt-Innovation</span>
+      <p class="erfolg-text">Eine neue Beratungs-Event-Reihe entwickelt, die als festes Format wiederholt umgesetzt wurde. Das sorgte für zufriedene Kunden, zog neue Interessenten an und schuf ein fertiges Zusatz-Angebot ohne Mehraufwand.</p>
+    </div>
+
+    <div class="erfolg-item">
+      <span class="erfolg-label">Betriebliche Exzellenz</span>
+      <p class="erfolg-text">Digitale Tools und Abläufe so sinnvoll verknüpft, dass sie die tägliche Arbeit wirklich erleichterten. Das Ergebnis: reibungslosere Zusammenarbeit im Team und deutlich weniger Fehler bei komplexen Projekten.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARBEITSPROBEN -->
+<section class="arbeitsproben" id="arbeitsproben">
+  <p class="section-label">Arbeitsproben</p>
+  <h2 class="section-title">Content & Social Media</h2>
+  <div class="proben-grid">
+
+    <a class="probe-card" href="arbeitsprobe_linkedin_mockup.html">
+      <span class="probe-platform">LinkedIn</span>
+      <span class="probe-title">Post-Mockup</span>
+      <span class="probe-desc">Content-Konzept und visuelles Mockup für einen LinkedIn-Beitrag im Karussell-Format – von der Idee bis zur fertigen Umsetzung.</span>
+      <span class="probe-link">
+        Ansehen
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+
+    <a class="probe-card" href="arbeitsprobe_instagram_mockup.html">
+      <span class="probe-platform">Instagram</span>
+      <span class="probe-title">Karussell-Mockup</span>
+      <span class="probe-desc">Visuelles Mockup eines Instagram-Karussells mit vollständigem Campaign-Konzept, Story-Struktur und zielgruppengerechter Ansprache.</span>
+      <span class="probe-link">
+        Ansehen
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+
+  </div>
+</section>
+
+<!-- LEBENSLAUF -->
+<section class="cv-section" id="cv">
+  <p class="section-label">Berufserfahrung</p>
+  <h2 class="section-title">Lebenslauf</h2>
+  <div class="cv-timeline">
+
+    <div class="cv-item">
+      <div class="cv-date">08/2023 – 01/2025</div>
+      <div class="cv-role">Customer Relations & Project Management</div>
+      <div class="cv-company">Wired Heads Sales Consulting GmbH</div>
+      <ul class="cv-bullets">
+        <li>Koordination digitaler Projekte und interner Prozessabläufe</li>
+        <li>Unterstützung bei Angebotserstellung & Projektkalkulation</li>
+        <li>Teamführung von bis zu 5 Teammitgliedern & Freelancern</li>
+        <li>Pflege von Projektmanagement-Tools & Zeitplänen</li>
+        <li>Mitwirkung an strategischer Weiterentwicklung von Unternehmensprozessen</li>
+      </ul>
+    </div>
+
+    <div class="cv-item">
+      <div class="cv-date">08/2022 – 06/2023</div>
+      <div class="cv-role">Telefonistin Lead Warming & HR-Support</div>
+      <div class="cv-company">Drachenberg Akademie GmbH</div>
+      <ul class="cv-bullets">
+        <li>CRM-Pflege (HubSpot) und Dokumentation im Sales-Funnel</li>
+        <li>Telefonische Kontaktaufnahme & Lead Warming (B2C)</li>
+        <li>Unterstützung im On-/Offboarding von Teilnehmenden</li>
+        <li>Zusammenarbeit mit HR & Marketing für reibungslose Abläufe</li>
+      </ul>
+    </div>
+
+    <div class="cv-item">
+      <div class="cv-date">08/2021 – 03/2022</div>
+      <div class="cv-role">Assistenz Personalmanagement</div>
+      <div class="cv-company">Kursana Care GmbH (Dussmann Group)</div>
+      <ul class="cv-bullets">
+        <li>Bewerberkommunikation & Pflege von Stellenanzeigen</li>
+        <li>Abwicklung von Ein- und Austrittsprozessen</li>
+        <li>Schnittstellenarbeit mit Abrechnung & Fachbereichen</li>
+        <li>Dokumentation sensibler Personalunterlagen</li>
+      </ul>
+    </div>
+
+    <div class="cv-item">
+      <div class="cv-date">02/2019 – 06/2020</div>
+      <div class="cv-role">Online-Marketing und Kommunikation</div>
+      <div class="cv-company">TimeCrew GmbH</div>
+      <ul class="cv-bullets">
+        <li>Pflege & Weiterentwicklung der Unternehmenswebsite inkl. SEO</li>
+        <li>Konzeption & Umsetzung von Social-Media-Inhalten</li>
+        <li>Erstellung interner & externer Kommunikationsmaterialien</li>
+        <li>Unterstützung bei Employer Branding & HR-Marketing</li>
+      </ul>
+    </div>
+
+    <div class="cv-item">
+      <div class="cv-date">09/2016 – 05/2018</div>
+      <div class="cv-role">Projekt- & Marketing Management</div>
+      <div class="cv-company">Blackflagship Markenagentur GmbH</div>
+      <ul class="cv-bullets">
+        <li>Markenanalyse & Positionierungsentwicklung für Kund:innen</li>
+        <li>Planung & Umsetzung digitaler und klassischer Kampagnen</li>
+        <li>Content-Erstellung für Online-Marketing & Social Media</li>
+        <li>Projektkoordination inkl. Zeit-, Budget- & Aufgabenplanung</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="kontakt" id="kontakt">
+  <p class="section-label">Kontakt</p>
+  <h2 class="section-title">Jetzt in Verbindung treten</h2>
+  <p class="kontakt-sub">Berlin · asker.ece@gmx.de · 0151 51088578</p>
+  <div class="kontakt-links">
+    <a href="mailto:asker.ece@gmx.de" class="kontakt-link">E-Mail schreiben</a>
+    <a href="arbeitsprobe_linkedin_mockup.html" class="kontakt-link secondary">LinkedIn-Arbeitsprobe</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Ece Asker · Berlin · Alle Inhalte sind Originalarbeiten
+</footer>
+
+</body>
+</html>
