@@ -56,14 +56,17 @@ body {
 .carousel-wrap {
   position: relative;
   width: 100%;
-  max-width: 390px;
-  max-width: 100%;
+  height: 0;
+  padding-bottom: 125%;
   overflow: hidden;
   background: #000;
 }
 .carousel-track {
-  display: flex;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
   height: 100%;
+  display: flex;
   transition: transform 0.3s ease;
 }
 .slide {
@@ -336,16 +339,6 @@ carousel.addEventListener('touchend', function(e) {
   }
 }, { passive: true });
 
-// Mobile Safari Fix: Höhe explizit setzen damit object-fit: cover korrekt funktioniert
-function fixCarouselHeight() {
-  const wrap = document.querySelector('.carousel-wrap');
-  if (!wrap) return;
-  const w = wrap.offsetWidth;
-  const h = Math.round(w * 5 / 4);
-  wrap.style.height = h + 'px';
-}
-fixCarouselHeight();
-window.addEventListener('resize', fixCarouselHeight);
 </script>
 </body>
 </html>
