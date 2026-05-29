@@ -262,7 +262,7 @@
 
   .tierschutz-para-wrap {
     display: grid;
-    grid-template-columns: 2fr 1.2fr;
+    grid-template-columns: 2fr 0.85fr;
     gap: 28px;
     align-items: start;
     margin-bottom: 32px;
@@ -284,7 +284,7 @@
 
   .tierschutz-para-wrap img {
     width: 90%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
     border-radius: 4px;
     display: block;
@@ -302,12 +302,18 @@
     .tierschutz-para-wrap {
       grid-template-columns: 1fr;
     }
+    .tierschutz-para-wrap figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .tierschutz-para-wrap img {
-      width: 100%;
-      aspect-ratio: 3 / 2;
+      width: 65%;
+      aspect-ratio: 3 / 4;
     }
     .tierschutz-para-wrap figcaption {
-      width: 100%;
+      width: 65%;
+      text-align: center;
     }
   }
 
