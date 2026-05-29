@@ -319,6 +319,23 @@ function toggleCaption() {
   document.getElementById('caption').className = 'caption-text' + (expanded?'':' collapsed');
   document.getElementById('toggle').textContent = expanded ? 'weniger' : 'mehr';
 }
+
+// Touch / Swipe Support für Mobile
+let touchStartX = 0;
+let touchEndX = 0;
+const carousel = document.getElementById('track').parentElement;
+
+carousel.addEventListener('touchstart', function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carousel.addEventListener('touchend', function(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 40) {
+    if (diff > 0) { move(1); } else { move(-1); }
+  }
+}, { passive: true });
 </script>
 </body>
 </html>
