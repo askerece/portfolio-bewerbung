@@ -55,7 +55,8 @@ body {
 
 .carousel-wrap {
   position: relative;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
   max-width: 100%;
   aspect-ratio: 4/5;
   overflow: hidden;
@@ -201,6 +202,25 @@ body {
   color: #8e8e8e;
   text-transform: uppercase;
   letter-spacing: 0.3px;
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 0;
+    background: #fff;
+  }
+  .phone-frame {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .carousel-wrap {
+    width: 100%;
+  }
+  .slide {
+    min-width: 100%;
+  }
 }
 </style>
 </head>
